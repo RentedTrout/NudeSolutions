@@ -1,0 +1,108 @@
+﻿@page
+
+@model NudeSolutions.Pages.InsuranceItems.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Insurance Contents</h1>
+<form method="post">
+    <div id="the whole thing" style="height:100%; width:100%; overflow: hidden;">
+        <div asp-validation-summary="ModelOnly" class="text-danger" style="float: left; width:15%;"></div>
+        <div class="form-group" style="float: left; width:15%; padding:5px 5px 5px 5px;">
+            <label asp-for="InsuranceItem.InsuranceCategoryID" class="font-weight-bold">Category</label>
+            <select asp-for="InsuranceItem.InsuranceCategoryID" class="form-control">
+                <option value="1">Clothing</option>
+                <option value="2">Electronics</option>
+                <option value="3">Kitchen</option>
+                <option value="4">Miscellaneous</option>
+            </select>
+            <span asp-validation-for="InsuranceItem.InsuranceCategoryID" class="text-danger"></span>
+        </div>
+
+        <div class="form-group" style="float: left; width:45%; padding:5px 5px 5px 5px;">
+            <label asp-for="InsuranceItem.Name" class="font-weight-bold" style="font:bold;"></label>
+            <input asp-for="InsuranceItem.Name" class="form-control" placeholder="Item Name" />
+            <span asp-validation-for="InsuranceItem.Name" class="text-danger" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group" style="float: left; width:10%; padding:5px 5px 5px 5px; text-align:right">
+            <label asp-for="InsuranceItem.Amount" class="font-weight-bold"></label>
+            <input asp-for="InsuranceItem.Amount" class="form-control" style="text-align:right" placeholder="Amount" />
+            <span asp-validation-for="InsuranceItem.Amount" class="text-danger" data-valmsg-replace="true"></span>
+        </div>
+
+        <div class="form-group" style="float: left; width:10%; padding:5px 5px 5px 5px;">
+            <label class="control-label" style="visibility:hidden">*</label>
+            <input type="submit" value="Add Item" class="btn btn-primary" style="vertical-align:bottom;" s />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th width="15%">
+                <form method="post" asp-route-id="1">
+                    Category
+                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
+                           border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                           onmouseover="this.src='sort_red.png';"
+                           onMouseOut="this.src='sort_blue.png';" />
+                    <input type="hidden" name="id" value="1" />
+                </form>
+            </th>
+            <th width="45%">
+                <form method="post" asp-route-id="2">
+                    Name
+                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
+                           border="0" alt="Sort" style="width: 18px;" asp-page-handler="Sort"
+                           onmouseover="this.src='sort_red.png';"
+                           onMouseOut="this.src='sort_blue.png';" />
+                    <input type="hidden" name="id" value="2" />
+                </form>
+            </th>
+            <th width="10%" style="text-align:right">
+                <form method="post" asp-route-id="3">
+                    Amount
+                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
+                           border="0" alt="Sort" style="width: 18px;" asp-page-handler="Sort"
+                           onmouseover="this.src='sort_red.png';"
+                           onMouseOut="this.src='sort_blue.png';" />
+                    <input type="hidden" name="id" value="3" />
+                </form>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.InsuranceItems)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.InsuranceCategories.Where(category => category.ID == item.InsuranceCategoryID).FirstOrDefault().Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td style="text-align:right">
+                    $ @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <form method="post" asp-route-id="@item.ID">
+                        <input type="image" name="submit" src="~/edit.png" title="Edit" border="0" alt="Submit" style="width: 24px;" asp-page-handler="Edit" />
+                        <input type="hidden" name="id" value="@item.ID" />
+                        <input type="image" name="submit" src="~/delete.png" title="Delete" border="0" alt="Submit" style="width: 24px;" asp-page-handler="Delete" />
+                        <input type="hidden" name="id" value="@item.ID" />
+                    </form>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="font-weight-bold">
+                Total Items: @Model.InsuranceItems.Count()
+            </td>
+        </tr>
+    </tbody>
+</table>
