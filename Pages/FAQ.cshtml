@@ -1,0 +1,84 @@
+﻿@page
+@model NudeSolutions.Pages.FAQModel
+@{
+    ViewData["Title"] = "FAQ";
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .accordion {
+            background-color: white;
+            color: #444;
+            cursor: pointer;
+            padding: 5px;
+            width: 40%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            font-weight:bold;
+            transition: 0.4s;
+        }
+
+            .active, .accordion:hover {
+                background-image: linear-gradient(to right, #1ad1ff, white);
+            }
+
+        .panel {
+            padding: 0 20px;
+            display: none;
+            background-color: white;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <h1>FAQs</h1>
+    <span>&#9733;</span>
+    <button class="accordion">How do I add items to my claim?</button>
+    <div class="panel">
+        <p>
+            Choose from one of the predetermined categories, enter the item you wish to add, and add an amount.
+            <br />
+            We have provided the abilities for you to edit, delete, and sort the items to make entering your claim easier.
+        </p>
+    </div>
+    <br />
+    <span>&#9733;</span>
+    <button class="accordion">There is no category provided for the item I wish to add.</button>
+    <div class="panel">
+        <p>
+            Choose from one of the predetermined categories. If you do not find one suitable for your item, choose other.
+        </p>
+    </div>
+    <br />
+    <span>&#9733;</span>
+    <button class="accordion">What is your contact information?</button>
+    <div class="panel">
+        <p>
+            Phone: 1-800-555-1234
+            <br />
+            Phone: info@nudesolutionsinsurance.com
+        </p>
+    </div>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+
+

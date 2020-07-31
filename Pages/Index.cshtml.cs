@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using NudeSolutions.Models;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,7 @@ namespace NudeSolutions.Pages.InsuranceItems
             {
                 return NotFound();
             }
+
             await OnGetAsync();
 
             InsuranceItem = await _context.InsuranceItem.FirstOrDefaultAsync(m => m.ID == id);
@@ -47,31 +49,32 @@ namespace NudeSolutions.Pages.InsuranceItems
             return Page();
         }
 
-        public async Task<IActionResult> OnGetAsyncForSort(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        public async Task<IActionResult> OnGetAsyncForSort(int id)
+        {      
             await OnGetAsync();
 
             switch (id)
             {
-                case 1:
-                    InsuranceItems = InsuranceItems.OrderBy(item => item.InsuranceCategoryID).ToList();
+                case 1:                    
+                    InsuranceItems = InsuranceItems.OrderBy(item => item.InsuranceCategoryID).ToList();                                       
                     break;
                 case 2:
-                    InsuranceItems = InsuranceItems.OrderBy(item => item.Name).ToList();
+                    InsuranceItems = InsuranceItems.OrderByDescending(item => item.InsuranceCategoryID).ToList();                   
                     break;
                 case 3:
+                    InsuranceItems = InsuranceItems.OrderBy(item => item.Name).ToList();                    
+                    break;
+                case 4:
+                    InsuranceItems = InsuranceItems.OrderByDescending(item => item.Name).ToList();
+                    break;
+                case 5:
                     InsuranceItems = InsuranceItems.OrderBy(item => item.Amount).ToList();
                     break;
-            }
-
-            if (InsuranceItem == null)
-            {
-                return NotFound();
-            }
+                case 6:
+                    InsuranceItems = InsuranceItems.OrderByDescending(item => item.Amount).ToList();
+                    break;
+            }           
+            
             return Page();
         }
         public async Task OnGetAsync()

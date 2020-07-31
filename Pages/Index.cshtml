@@ -21,13 +21,13 @@
             <span asp-validation-for="InsuranceItem.InsuranceCategoryID" class="text-danger"></span>
         </div>
 
-        <div class="form-group" style="float: left; width:45%; padding:5px 5px 5px 5px;">
+        <div class="form-group" style="float: left; width:50%; padding:5px 5px 5px 5px;">
             <label asp-for="InsuranceItem.Name" class="font-weight-bold" style="font:bold;"></label>
             <input asp-for="InsuranceItem.Name" class="form-control" placeholder="Item Name" />
             <span asp-validation-for="InsuranceItem.Name" class="text-danger" data-valmsg-replace="true"></span>
         </div>
 
-        <div class="form-group" style="float: left; width:10%; padding:5px 5px 5px 5px; text-align:right">
+        <div class="form-group" style="float: left; width:20%; padding:5px 5px 5px 5px; text-align:right">
             <label asp-for="InsuranceItem.Amount" class="font-weight-bold"></label>
             <input asp-for="InsuranceItem.Amount" class="form-control" style="text-align:right" placeholder="Amount" />
             <span asp-validation-for="InsuranceItem.Amount" class="text-danger" data-valmsg-replace="true"></span>
@@ -44,36 +44,86 @@
     <thead>
         <tr>
             <th width="15%">
-                <form method="post" asp-route-id="1">
-                    Category
-                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
-                           border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
-                           onmouseover="this.src='sort_red.png';"
-                           onMouseOut="this.src='sort_blue.png';" />
-                    <input type="hidden" name="id" value="1" />
-                </form>
+                <div style="height:100%; width:100%; overflow: hidden;">
+                    <div>
+                        <div class="form-group" style="float: left; padding: 5px 5px 5px 5px;">
+                            Category
+                        </div>
+                        <div class="form-group" style="float: left; padding:5px 0px 5px 0px;">
+                            <form method="post">
+                                <input type="image" name="submit" src="~/sort_blue_asc.png" title="Sort Ascending"
+                                       border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                       onmouseover="this.src='sort_red_asc.png';"
+                                       onMouseOut="this.src='sort_blue_asc.png';" />
+                                <input type="hidden" name="id" value="1" />
+                            </form>
+                        </div>
+                        <div class="form-group" style="float: left; padding:5px 0px 5px 0px;">
+                            <form method="post">
+                                <input type="image" name="submit" src="~/sort_blue_desc.png" title="Sort Descending"
+                                       border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                       onmouseover="this.src='sort_red_desc.png';"
+                                       onMouseOut="this.src='sort_blue_desc.png';" />
+                                <input type="hidden" name="id" value="2" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </th>
-            <th width="45%">
-                <form method="post" asp-route-id="2">
-                    Name
-                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
-                           border="0" alt="Sort" style="width: 18px;" asp-page-handler="Sort"
-                           onmouseover="this.src='sort_red.png';"
-                           onMouseOut="this.src='sort_blue.png';" />
-                    <input type="hidden" name="id" value="2" />
-                </form>
+            <th width="50%">
+                <div style="height:100%; width:100%; overflow: hidden;">
+                    <div>
+                        <div class="form-group" style="float: left; padding:5px;">
+                            Name
+                        </div>
+                        <div class="form-group" style="float: left; padding:5px 0px 5px 0px;">
+                            <form method="post">
+                                <input type="image" name="submit" src="~/sort_blue_asc.png" title="Sort Ascending"
+                                       border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                       onmouseover="this.src='sort_red_asc.png';"
+                                       onMouseOut="this.src='sort_blue_asc.png';" />
+                                <input type="hidden" name="id" value="3" />
+                            </form>
+                        </div>
+                        <div class="form-group" style="float: left; padding:5px 0px 5px 0px;">
+                            <form method="post">
+                                <input type="image" name="submit" src="~/sort_blue_desc.png" title="Sort Descending"
+                                       border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                       onmouseover="this.src='sort_red_desc.png';"
+                                       onMouseOut="this.src='sort_blue_desc.png';" />
+                                <input type="hidden" name="id" value="4" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </th>
-            <th width="10%" style="text-align:right">
-                <form method="post" asp-route-id="3">
-                    Amount
-                    <input type="image" name="submit" src="~/sort_blue.png" title="Sort"
-                           border="0" alt="Sort" style="width: 18px;" asp-page-handler="Sort"
-                           onmouseover="this.src='sort_red.png';"
-                           onMouseOut="this.src='sort_blue.png';" />
-                    <input type="hidden" name="id" value="3" />
-                </form>
+            <th width="20%">
+                <div style="height:100%; width:100%; overflow: hidden; float:left; text-align:left;">
+                    <div class="form-group" style="float: right; padding:5px 0px 5px 0px;">
+                        <form method="post">
+                            <input type="image" name="submit" src="~/sort_blue_desc.png" title="Sort Descending"
+                                   border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                   onmouseover="this.src='sort_red_desc.png';"
+                                   onMouseOut="this.src='sort_blue_desc.png';" />
+                            <input type="hidden" name="id" value="6" />
+                        </form>
+                    </div>
+                    <div class="form-group" style="float: right; padding:5px 0px 5px 0px;">
+                        <form method="post">
+                            <input type="image" name="submit" src="~/sort_blue_asc.png" title="Sort Ascending"
+                                   border="0" alt="Edit" style="width: 18px;" asp-page-handler="Sort"
+                                   onmouseover="this.src='sort_red_asc.png';"
+                                   onMouseOut="this.src='sort_blue_asc.png';" />
+                            <input type="hidden" name="id" value="5" />
+                        </form>
+                    </div>
+                    <div class="form-group" style="float: right; padding: 5px;">
+                        Amount
+                    </div>
+                </div>
             </th>
-            <th></th>
+            <th>
+            </th>
         </tr>
     </thead>
     <tbody>
