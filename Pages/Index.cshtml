@@ -1,6 +1,6 @@
 ﻿@page
 
-@model NudeSolutions.Pages.InsuranceItems.IndexModel
+@model NudeSolutions.Pages.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -28,8 +28,8 @@
         </div>
 
         <div class="form-group" style="float: left; width:20%; padding:5px 5px 5px 5px; text-align:right">
-            <label asp-for="InsuranceItem.Amount" class="font-weight-bold"></label>
-            <input asp-for="InsuranceItem.Amount" class="form-control" style="text-align:right" placeholder="Amount" />
+            <label asp-for="InsuranceItem.Amount" class="font-weight-bold"></label>            
+            <input asp-for="InsuranceItem.Amount" type="number" step=".01" class="form-control" style="text-align:right" placeholder="Amount" />
             <span asp-validation-for="InsuranceItem.Amount" class="text-danger" data-valmsg-replace="true"></span>
         </div>
 
@@ -137,7 +137,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td style="text-align:right">
-                    $ @Html.DisplayFor(modelItem => item.Amount)
+                    @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
                     <form method="post" asp-route-id="@item.ID">
@@ -149,10 +149,16 @@
                 </td>
             </tr>
         }
-        <tr>
-            <td class="font-weight-bold">
-                Total Items: @Model.InsuranceItems.Count()
-            </td>
-        </tr>
+    <tr>
+        <td class="font-weight-bold">
+            Total Items: @Model.InsuranceItems.Count()
+        </td>
+        <td class="font-weight-bold">            
+        </td>
+        <td class="font-weight-bold" style="text-align:right">
+            Total Value: @Model.InsuranceItems.Sum(items => items.Amount).ToString("C3", System.Globalization.CultureInfo.CurrentCulture)
+        </td>
+
+    </tr>
     </tbody>
 </table>

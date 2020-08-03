@@ -1,10 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NudeSolutions.Models
 {
     public class InsuranceItem
-    {        
+    {
         public int ID { get; set; }
 
         [Required]
@@ -13,7 +12,8 @@ namespace NudeSolutions.Models
         [Required(ErrorMessage = "Please enter a name.")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Please enter an amount.")]
+        [Required(ErrorMessage = "Please enter an amount.")]   
+        [DataType(DataType.Currency)]        
         public decimal Amount { get; set; }
     }
 }

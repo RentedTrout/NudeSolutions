@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 using NudeSolutions.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NudeSolutions.Pages.InsuranceItems
+namespace NudeSolutions.Pages
 {
     public class IndexModel : PageModel
     {
@@ -21,6 +18,7 @@ namespace NudeSolutions.Pages.InsuranceItems
         }
 
         #region Properties
+
         [BindProperty]
         public InsuranceItem InsuranceItem { get; set; }
 
@@ -31,6 +29,12 @@ namespace NudeSolutions.Pages.InsuranceItems
         #endregion Properties
 
         #region Methods
+
+        /// <summary>
+        /// Get insurance item by supplied ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnGetAsyncByID(int? id)
         {
             if (id == null)
@@ -49,48 +53,72 @@ namespace NudeSolutions.Pages.InsuranceItems
             return Page();
         }
 
+        /// <summary>
+        /// Order insurance items ascending or descending by column
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnGetAsyncForSort(int id)
-        {      
+        {
             await OnGetAsync();
 
             switch (id)
             {
-                case 1:                    
-                    InsuranceItems = InsuranceItems.OrderBy(item => item.InsuranceCategoryID).ToList();                                       
+                case 1:
+                    InsuranceItems = InsuranceItems.OrderBy(item => item.InsuranceCategoryID).ToList();
                     break;
+
                 case 2:
-                    InsuranceItems = InsuranceItems.OrderByDescending(item => item.InsuranceCategoryID).ToList();                   
+                    InsuranceItems = InsuranceItems.OrderByDescending(item => item.InsuranceCategoryID).ToList();
                     break;
+
                 case 3:
-                    InsuranceItems = InsuranceItems.OrderBy(item => item.Name).ToList();                    
+                    InsuranceItems = InsuranceItems.OrderBy(item => item.Name).ToList();
                     break;
+
                 case 4:
                     InsuranceItems = InsuranceItems.OrderByDescending(item => item.Name).ToList();
                     break;
+
                 case 5:
                     InsuranceItems = InsuranceItems.OrderBy(item => item.Amount).ToList();
                     break;
+
                 case 6:
                     InsuranceItems = InsuranceItems.OrderByDescending(item => item.Amount).ToList();
                     break;
-            }           
-            
+            }
+
             return Page();
         }
+
+        /// <summary>
+        /// retrieve items from database
+        /// </summary>
+        /// <returns></returns>
         public async Task OnGetAsync()
         {
             InsuranceItems = await _context.InsuranceItem.ToListAsync();
             InsuranceCategories = await _context.InsuranceCategory.ToListAsync();
         }
 
+        /// <summary>
+        /// Handle Sort features based on supplied button id pressed
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task OnPostSortAsync(int id)
         {
             await OnGetAsyncForSort(id);
         }
+
+        /// <summary>
+        /// Handle delete request for supplied insurance item ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-
-
             InsuranceItem = _context.InsuranceItem.Where(item => item.ID == id).FirstOrDefault();
             _context.InsuranceItem.Remove(InsuranceItem);
             await _context.SaveChangesAsync();
@@ -98,8 +126,13 @@ namespace NudeSolutions.Pages.InsuranceItems
             return RedirectToPage("./Index");
         }
 
+        /// <summary>
+        /// Handle edit request for supplied insurance item ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task OnPostEditAsync(int id)
-        {
+        {            
             if (id == 0)
             {                
                 _context.InsuranceItem.Add(InsuranceItem);
@@ -113,6 +146,10 @@ namespace NudeSolutions.Pages.InsuranceItems
             }
         }
 
+        /// <summary>
+        /// Handle add new item request
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -127,6 +164,6 @@ namespace NudeSolutions.Pages.InsuranceItems
             return RedirectToPage("./Index");
         }
     }
-    #endregion Methods
 
+    #endregion Methods
 }
