@@ -45,6 +45,7 @@ namespace NudeSolutions.Pages
             await OnGetAsync();
 
             InsuranceItem = await _context.InsuranceItem.FirstOrDefaultAsync(m => m.ID == id);
+            
 
             if (InsuranceItem == null)
             {
@@ -98,7 +99,7 @@ namespace NudeSolutions.Pages
         /// <returns></returns>
         public async Task OnGetAsync()
         {
-            InsuranceItems = await _context.InsuranceItem.ToListAsync();
+            InsuranceItems = await _context.InsuranceItem.OrderBy(item => item.InsuranceCategoryID).ThenBy(item => item.Name).ThenBy(item => item.Amount).ToListAsync();
             InsuranceCategories = await _context.InsuranceCategory.ToListAsync();
         }
 
@@ -124,27 +125,7 @@ namespace NudeSolutions.Pages
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
-        }
-
-        /// <summary>
-        /// Handle edit request for supplied insurance item ID
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public async Task OnPostEditAsync(int id)
-        {            
-            if (id == 0)
-            {                
-                _context.InsuranceItem.Add(InsuranceItem);
-                await _context.SaveChangesAsync();
-                await OnGetAsync();
-                RedirectToPage("./Index");
-            }
-            else
-            {
-                await OnGetAsyncByID(id);
-            }
-        }
+        }       
 
         /// <summary>
         /// Handle add new item request

@@ -35,7 +35,7 @@
 
         <div class="form-group" style="float: left; width:10%; padding:5px 5px 5px 5px;">
             <label class="control-label" style="visibility:hidden">*</label>
-            <input type="submit" value="Add Item" class="btn btn-primary" style="vertical-align:bottom;"/>
+            <input type="submit" value="Add Item" class="btn btn-primary" style="vertical-align:bottom;" name="Submit"/>         
         </div>
     </div>
 </form>
@@ -140,9 +140,7 @@
                     @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
-                    <form method="post" asp-route-id="@item.ID">
-                        <input type="image" name="submit" src="~/edit.png" title="Edit" border="0" alt="Submit" style="width: 24px;" asp-page-handler="Edit" />
-                        <input type="hidden" name="id" value="@item.ID" />
+                    <form method="post" asp-route-id="@item.ID">                       
                         <input type="image" name="submit" src="~/delete.png" title="Delete" border="0" alt="Submit" style="width: 24px;" asp-page-handler="Delete" />
                         <input type="hidden" name="id" value="@item.ID" />
                     </form>
